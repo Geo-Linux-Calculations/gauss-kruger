@@ -1,5 +1,5 @@
 /* Gauss Kruger.
- * Version: 1.0
+ * Version: 1.1
  *
  * Authors: Erik Lundin [https://github.com/f03el] 2016.
  * Authors: zvezdochiot [https://github.com/zvezdochiot] 2020.
@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     ellipsoid.falseNorthing = FALSENORTHING;
     ellipsoid.falseEasting = FALSEEASTING;
     GKcoord coords;
-    int opt, fReverse = 0, fhelp = 0;
+    int opt, freverse = 0, fhelp = 0;
 
     while ((opt = getopt(argc, argv, ":i:a:m:s:n:e:rh")) != -1)
     {
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
                 ellipsoid.falseEasting = atof(optarg);
                 break;
             case 'r':
-                fReverse = 1;
+                freverse = 1;
                 break;
             case 'h':
                 fhelp = 1;
@@ -106,18 +106,20 @@ int main(int argc, char *argv[])
     printf("  False easting = %f\n", ellipsoid.falseEasting);
 
     printf("Point:\n");
-    if (fReverse == 1) {
-        printf("  Northing = %.3f\n", coords.coord[0]);
-        printf("  Easting = %.3f\n", coords.coord[1]);
-        coords = gausskruger_gridtogeodetic(coords, ellipsoid);
+    if (freverse == 0) {
         printf("  Latitude = %.10f\n", coords.coord[0]);
         printf("  Longitude = %.10f\n", coords.coord[1]);
     } else {
+        printf("  Northing = %.4f\n", coords.coord[0]);
+        printf("  Easting = %.4f\n", coords.coord[1]);
+    }
+    coords = gausskruger(coords, ellipsoid, freverse);
+    if (freverse == 0) {
+        printf("  Northing = %.4f\n", coords.coord[0]);
+        printf("  Easting = %.4f\n", coords.coord[1]);
+    } else {
         printf("  Latitude = %.10f\n", coords.coord[0]);
         printf("  Longitude = %.10f\n", coords.coord[1]);
-        coords = gausskruger_geodetictogrid(coords, ellipsoid);
-        printf("  Northing = %.3f\n", coords.coord[0]);
-        printf("  Easting = %.3f\n", coords.coord[1]);
     }
 
     return 0;

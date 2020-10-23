@@ -1,5 +1,5 @@
 /* Gauss Kruger.
- * Version: 1.0
+ * Version: 1.1
  *
  * Authors: Erik Lundin [https://github.com/f03el] 2016.
  * Authors: zvezdochiot [https://github.com/zvezdochiot] 2020.
@@ -35,7 +35,6 @@ typedef struct
 }
 GKparams;
 
-GKcoord gausskruger_geodetictogrid(GKcoord latilong, GKparams ellipsoid);
-GKcoord gausskruger_gridtogeodetic(GKcoord norteast, GKparams ellipsoid);
+GKcoord gausskruger(GKcoord source, GKparams ellipsoid, int freverse);
 
 #endif // GAUSSKRUGER_H

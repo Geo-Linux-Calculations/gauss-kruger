@@ -35,8 +35,8 @@ Ellipsoid:
 Point:
   Latitude = 67.8775666670
   Longitude = 21.0602500000
-  Northing = 7563929.530
-  Easting = 1908686.715
+  Northing = 7563929.5303
+  Easting = 1908686.7147
 ```
 
 To see all options, run the tool without options or with `-h`:
