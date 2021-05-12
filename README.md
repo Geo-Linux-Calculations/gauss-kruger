@@ -1,3 +1,9 @@
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Geo-Linux-Calculations/gauss-kruger)
+![GitHub Release Date](https://img.shields.io/github/release-date/Geo-Linux-Calculations/gauss-kruger)
+![GitHub repo size](https://img.shields.io/github/repo-size/Geo-Linux-Calculations/gauss-kruger)
+![GitHub all releases](https://img.shields.io/github/downloads/Geo-Linux-Calculations/gauss-kruger/total)
+![GitHub](https://img.shields.io/github/license/Geo-Linux-Calculations/gauss-kruger)
+
 # Simple Gauss-Krüger transformation for C
 
 ## Description
