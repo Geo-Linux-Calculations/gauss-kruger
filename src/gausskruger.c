@@ -1,11 +1,12 @@
 /* Gauss Kruger.
- * Version: 1.1
+ * Version: 1.2
  *
  * Authors: Erik Lundin [https://github.com/f03el] 2016.
  * Authors: zvezdochiot [https://github.com/zvezdochiot] 2020.
  *
- * Public Domain Mark 1.0
- * No Copyright
+ * Unlicense.
+ * This is free and unencumbered software released into the public domain.
+ * For more information, please refer to <https://unlicense.org>
 */
 
 #include "gausskruger.h"

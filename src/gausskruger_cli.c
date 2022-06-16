@@ -1,11 +1,12 @@
 /* Gauss Kruger.
- * Version: 1.1
+ * Version: 1.2
  *
  * Authors: Erik Lundin [https://github.com/f03el] 2016.
  * Authors: zvezdochiot [https://github.com/zvezdochiot] 2020.
  *
- * Public Domain Mark 1.0
- * No Copyright
+ * Unlicense.
+ * This is free and unencumbered software released into the public domain.
+ * For more information, please refer to <https://unlicense.org>
 */
 
 #include <stdio.h>
@@ -24,7 +25,7 @@
 
 void gausskrugerhelp(char *pname)
 {
-    printf("Gauss Kruger.\n");
+    printf("Gauss Kruger (ver.1.2).\n");
     printf("Homepage: https://github.com/Geo-Linux-Calculations/gauss-kruger\n\n");
     printf("Usage:\n");
     printf("%s [options] latitude longitude\n", pname);
@@ -36,6 +37,7 @@ void gausskrugerhelp(char *pname)
     printf("    -n      False northing (default = %f)\n", FALSENORTHING);
     printf("    -e      False easting (default = %f)\n", FALSEEASTING);
     printf("    -r      Reverse transformation (default = FALSE)\n");
+    printf("    -q      Quiet mode (default = FALSE)\n");
     printf("    -h      this help\n");
 }
 
@@ -49,9 +51,9 @@ int main(int argc, char *argv[])
     ellipsoid.falseNorthing = FALSENORTHING;
     ellipsoid.falseEasting = FALSEEASTING;
     GKcoord coords;
-    int opt, freverse = 0, fhelp = 0;
+    int opt, freverse = 0, fhelp = 0, fquiet = 0;
 
-    while ((opt = getopt(argc, argv, ":i:a:m:s:n:e:rh")) != -1)
+    while ((opt = getopt(argc, argv, ":i:a:m:s:n:e:rqh")) != -1)
     {
         switch(opt)
         {
@@ -76,6 +78,9 @@ int main(int argc, char *argv[])
             case 'r':
                 freverse = 1;
                 break;
+            case 'q':
+                fquiet = 1;
+                break;
             case 'h':
                 fhelp = 1;
                 break;
@@ -97,29 +102,43 @@ int main(int argc, char *argv[])
     coords.coord[0] = atof(argv[optind]);
     coords.coord[1] = atof(argv[optind + 1]);
 
-    printf("Ellipsoid:\n");
-    printf("  Inverse flattening = %f\n", ellipsoid.inverseFlattening);
-    printf("  Equatorial radius = %f\n", ellipsoid.equatorialRadius);
-    printf("  Central meridian = %f\n", ellipsoid.centralMeridian);
-    printf("  Scale factor = %f\n", ellipsoid.scale);
-    printf("  False northing = %f\n", ellipsoid.falseNorthing);
-    printf("  False easting = %f\n", ellipsoid.falseEasting);
+    if (!fquiet)
+    {
+        printf("Ellipsoid:\n");
+        printf("  Inverse flattening = %f\n", ellipsoid.inverseFlattening);
+        printf("  Equatorial radius = %f\n", ellipsoid.equatorialRadius);
+        printf("  Central meridian = %f\n", ellipsoid.centralMeridian);
+        printf("  Scale factor = %f\n", ellipsoid.scale);
+        printf("  False northing = %f\n", ellipsoid.falseNorthing);
+        printf("  False easting = %f\n", ellipsoid.falseEasting);
 
-    printf("Point:\n");
-    if (freverse == 0) {
-        printf("  Latitude = %.10f\n", coords.coord[0]);
-        printf("  Longitude = %.10f\n", coords.coord[1]);
-    } else {
-        printf("  Northing = %.4f\n", coords.coord[0]);
-        printf("  Easting = %.4f\n", coords.coord[1]);
+        printf("Point:\n");
+        if (freverse == 0) {
+            printf("  Latitude = %.10f\n", coords.coord[0]);
+            printf("  Longitude = %.10f\n", coords.coord[1]);
+        } else {
+            printf("  Northing = %.4f\n", coords.coord[0]);
+            printf("  Easting = %.4f\n", coords.coord[1]);
+        }
     }
     coords = gausskruger(coords, ellipsoid, freverse);
-    if (freverse == 0) {
-        printf("  Northing = %.4f\n", coords.coord[0]);
-        printf("  Easting = %.4f\n", coords.coord[1]);
-    } else {
-        printf("  Latitude = %.10f\n", coords.coord[0]);
-        printf("  Longitude = %.10f\n", coords.coord[1]);
+    if (fquiet)
+    {
+        if (freverse == 0) {
+            printf("%.4f %.4f\n", coords.coord[0], coords.coord[1]);
+        } else {
+            printf("%.10f %.10f\n", coords.coord[0], coords.coord[1]);
+        }
+    }
+    else
+    {
+        if (freverse == 0) {
+            printf("  Northing = %.4f\n", coords.coord[0]);
+            printf("  Easting = %.4f\n", coords.coord[1]);
+        } else {
+            printf("  Latitude = %.10f\n", coords.coord[0]);
+            printf("  Longitude = %.10f\n", coords.coord[1]);
+        }
     }
 
     return 0;

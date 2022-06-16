@@ -43,6 +43,9 @@ Point:
   Longitude = 21.0602500000
   Northing = 7563929.5303
   Easting = 1908686.7147
+
+$ ./gausskruger -q -i 298.257222101 -a 6378137 -m 11.30625 -s 1.000006 -n -667.282 -e 1500025.141 67.877566667 21.06025
+7563929.5303 1908686.7147
 ```
 
 To see all options, run the tool without options or with `-h`:
@@ -58,6 +61,7 @@ Options:
     -n      False northing (default = -667.282000)
     -e      False easting (default = 1500025.141000)
     -r      Reverse transformation (default = FALSE)
+    -q      Quiet mode (default = FALSE)
     -h      this help
 ```
 
